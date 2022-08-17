@@ -1,0 +1,135 @@
+﻿@page
+@model QuizApp.Pages.Countries.IndexModel
+@{
+    ViewData["Title"] = "Home page";
+}
+  
+
+@functions{
+
+
+    void displayOptions(int nr, int place, string correct, string incorrect1, string incorrect2)
+    {
+        var answerNr = "country" + nr;
+        switch(place)
+        {
+            case 1:
+                <input id="correct" type="radio" name="@answerNr" value="@correct"> @correct
+                <br>
+                <input id="incorrect1" type="radio" name="@answerNr" value="@incorrect1"> @incorrect1
+                <br>
+                <input id="incorrect2" type="radio" name="@answerNr" value="@incorrect2"> @incorrect2
+                <br>
+                break;
+            case 2:
+                <input id="incorrect1" type="radio" name="@answerNr"> @incorrect1
+                <br>
+                <input id="correct" type="radio" name="@answerNr"> @correct
+                <br>
+                <input id="incorrect2" type="radio" name="@answerNr"> @incorrect2
+                <br>
+                break;
+            case 3:
+                <input id="incorrect1" type="radio" name="@answerNr"> @incorrect1
+                <br>
+                <input id="incorrect2" type="radio" name="@answerNr"> @incorrect2
+                <br>
+                <input id="correct" type="radio" name="@answerNr"> @correct
+                <br>
+                break;
+            default:
+                break;
+        }
+    }
+} 
+
+<div class="text-center">
+    <h1 class="display-4">Welcome to Country Shape Quiz</h1>
+    <h4>Guess the names of 10 randomly selected countries or territories: </h4>
+
+    @{
+        var questionNumber = 1;
+        var countriesCount = Model.Country.Count();
+        Random rnd = new Random();
+        var n1 = 0;
+        var n2 = 0;
+        var place = 0;
+        var imagePath = "";
+        var altText = "Shape of the country";
+
+
+        //create an array containing id numbers of 10 selected countries 
+        int[] ids = new int[10];
+        var number = 0;
+        for(var i=0; i<ids.Length; i++)
+        {
+            do
+            {
+                number = rnd.Next(1, countriesCount + 1);
+            } while (ids.Contains(number));
+
+            ids[i] = number;
+        }
+    }
+
+    <form class="questions" method="post">
+    @foreach (var item in Model.Country) {
+
+            if(@ids.Contains(@item.id))
+            {
+                imagePath = "~/css/images/" + @item.image_name;
+
+                do
+                {
+                    n1 = rnd.Next(1, countriesCount + 1);
+                } while (n1 == @item.id);
+
+                do
+                {
+                    n2 = rnd.Next(1, countriesCount + 1);
+                } while (n2 == @item.id || n2 == n1);
+
+                Dictionary<int, string> incorrects = new Dictionary<int, string>();
+
+                @foreach  (var country in Model.Country)
+                {
+                    if(@country.id == n1)
+                    {
+                        incorrects.Add(n1, @country.country_name);
+                    }
+                    else if(@country.id == n2)
+                    {
+                        incorrects.Add(n2, @country.country_name);
+                    }
+
+                    if(@incorrects.Count == 2)
+                    {
+                        break;
+                    }
+                }
+
+                place = rnd.Next(1, 4);
+                <div class="question" style="background-color:khaki">
+                <br>
+                <p>@questionNumber ) 
+                <img src="@Url.Content(imagePath)" alt="@altText" /> </p>
+             
+                <div class="answers">
+                @{
+                    displayOptions(@questionNumber, @place, @item.country_name, @incorrects[n1], @incorrects[n2]);
+                }
+                </div>
+                <br>
+                </div>
+                <br>
+
+                questionNumber++;
+
+            }
+
+    }
+    <input type="submit" value="Submit" class="submit" />
+    </form>
+
+
+</div>
