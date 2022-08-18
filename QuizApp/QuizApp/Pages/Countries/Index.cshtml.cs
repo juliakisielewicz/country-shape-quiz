@@ -42,22 +42,15 @@ namespace QuizApp.Pages.Countries
 
         public async Task<IActionResult> OnPostAsync()
         {
-            if (!ModelState.IsValid || _context.Result == null || Result == null)
+            foreach(var answer in _context.Result)
             {
-                return Page();
+                _context.Result.Remove(answer);
             }
 
-            if(_context.Result.Count() >=47)
-            {
-                return RedirectToPage("./Results");
-
-            }
-
-
-            _context.Result.Add(Result);
             await _context.SaveChangesAsync();
-            
-            return RedirectToPage("./Index");
+
+
+            return RedirectToPage("./Quiz");
         }
         /*
 
