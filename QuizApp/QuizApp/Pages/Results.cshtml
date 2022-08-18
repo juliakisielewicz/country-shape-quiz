@@ -1,0 +1,18 @@
+﻿@page
+@model QuizApp.Pages.ResultsModel
+@{
+        ViewData["Title"] = "Results";
+}
+
+<p>HUHUHU.</p>
+
+<table class="table">
+    @foreach (var item in Model.Results) {
+         <tr>
+             <td>Correct answer: @item.correct_answer</td>
+             <td>Your answer: @item.selected_answer</td>
+         </tr>
+
+    }
+</table>
+

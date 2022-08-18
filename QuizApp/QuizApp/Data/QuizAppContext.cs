@@ -15,5 +15,7 @@ namespace QuizApp.Data
         }
 
         public DbSet<QuizApp.Models.Country> Country { get; set; } = default!;
+        public DbSet<QuizApp.Models.Result> Result { get; set; } = default!;
+
     }
 }

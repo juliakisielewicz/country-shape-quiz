@@ -29,7 +29,7 @@ namespace QuizApp.Pages.Countries
         
 
         // To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD
-        /*
+        
         public async Task<IActionResult> OnPostAsync()
         {
           if (!ModelState.IsValid || _context.Country == null || Country == null)
@@ -41,12 +41,13 @@ namespace QuizApp.Pages.Countries
             await _context.SaveChangesAsync();
 
             return RedirectToPage("./Index");
-        }*/
-
-        public string Name { get; set; }
-        public void OnPostSubmit(Country cnt)
-        {
-            this.Name = string.Format("Name: {0} {1}", cnt.country_name, cnt.image_name);
         }
+        /*
+        public string Name { get; set; }
+        public void OnPostSubmit(Result cnt)
+        {
+            this.Name = string.Format("Name: {0} {1}", cnt.selected_answer, cnt.selected_answer);
+        }
+        */
     }
 }

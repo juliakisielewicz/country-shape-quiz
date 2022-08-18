@@ -20,6 +20,10 @@ namespace QuizApp.Pages.Countries
         }
 
         public IList<Country> Country { get;set; } = default!;
+        public IList<Result> Results { get; set; } = default!;
+        [BindProperty]
+        public Result Result { get; set; } = default!;
+
 
         public async Task OnGetAsync()
         {
@@ -27,6 +31,41 @@ namespace QuizApp.Pages.Countries
             {
                 Country = await _context.Country.ToListAsync();
             }
+
+            if (_context.Result != null)
+            {
+                Results = await _context.Result.ToListAsync();
+            }
         }
+
+
+
+        public async Task<IActionResult> OnPostAsync()
+        {
+            if (!ModelState.IsValid || _context.Result == null || Result == null)
+            {
+                return Page();
+            }
+
+            if(_context.Result.Count() >=47)
+            {
+                return RedirectToPage("./Results");
+
+            }
+
+
+            _context.Result.Add(Result);
+            await _context.SaveChangesAsync();
+            
+            return RedirectToPage("./Index");
+        }
+        /*
+
+        public string Message { get; set; }
+        public void OnPostSubmit(Result result)
+        {
+            this.Message = string.Format("Correct answer: {0}. Your answer: {1}.", result.selected_answer, result.selected_answer);
+        }
+        */
     }
 }

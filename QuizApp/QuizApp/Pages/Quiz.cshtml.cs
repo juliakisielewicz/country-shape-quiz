@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -10,11 +10,11 @@ using QuizApp.Models;
 
 namespace QuizApp.Pages
 {
-    public class IndexModel : PageModel
+    public class QuizModel : PageModel
     {
         private readonly ILogger<IndexModel> _logger;
 
-        public IndexModel(ILogger<IndexModel> logger)
+        public QuizModel(ILogger<IndexModel> logger)
         {
             _logger = logger;
         }
@@ -26,7 +26,7 @@ namespace QuizApp.Pages
 
 
 
-        
+
 
     }
 }
