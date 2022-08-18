@@ -50,7 +50,7 @@ namespace QuizApp.Pages
                 return Page();
             }
 
-            if (_context.Result.Count() >= 10)
+            if (_context.Result.Count() >= 5)
             {
                 return RedirectToPage("./Results");
 
