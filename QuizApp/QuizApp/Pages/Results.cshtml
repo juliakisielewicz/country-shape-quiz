@@ -4,68 +4,48 @@
         ViewData["Title"] = "Results";
 }
 
+<div class="text-center">
+
 @{
-    var imagePath = "";
-    var altText = "Shape of the country";
-}
-
-<table class="table">
-    @*
-    @foreach (var res in Model.Results)
+    if(Model.Results.Count() == 0)
     {
-        @foreach(var c_cnt in Model.Country)
-        {
-            if(res.correct_answer == c_cnt.id)
-            {
-                @foreach(var s_cnt in Model.Country)
-                {
-                    if(res.selected_answer == s_cnt.id)
-                    {
-                        imagePath = "~/css/images/" + @c_cnt.image_name;
-
-                        <tr>
-                            <td><img src="@Url.Content(imagePath)" alt="@altText" /></td>
-                            <td>Correct answer: @c_cnt.country_name</td>
-                            <td>Your answer: @s_cnt.country_name</td>
-                        </tr> 
-                        break;
-                    }
-                }
-                break;
-            }
-        }
+            <p>Play the game to see your results!</p>
     }
-    *@
-    @{
+    else
+    {
+        var imagePath = "";
+        var altText = "Shape of the country";
         var cor = new Models.Country();
         var sel = new Models.Country();
+            
+        <table class="table">
 
-    }
-
-    @foreach(var res in Model.Results)
-    {
-        @foreach (var cnt in Model.Country)
+        @foreach(var res in Model.Results)
         {
-            if(cnt.id == res.correct_answer)
+            @foreach (var cnt in Model.Country)
             {
-                cor = cnt;
+                if(cnt.id == res.correct_answer)
+                {
+                    cor = cnt;
+                }
+                if(cnt.id == res.selected_answer)
+                {
+                    sel = cnt;
+                }
             }
-            if(cnt.id == res.selected_answer)
-            {
-                sel = cnt;
-            }
+
+            imagePath = "~/css/images/" + @cor.image_name;
+
+            <tr>
+                <td><img src="@Url.Content(imagePath)" alt="@altText" /></td>
+                <td>Correct answer: @cor.country_name</td>
+                <td>Your answer: @sel.country_name</td>
+            </tr> 
         }
 
-        imagePath = "~/css/images/" + @cor.image_name;
-
-        <tr>
-            <td><img src="@Url.Content(imagePath)" alt="@altText" /></td>
-            <td>Correct answer: @cor.country_name</td>
-            <td>Your answer: @sel.country_name</td>
-        </tr> 
+        </table>
     }
-    
 
+}
 
-</table>
-
+</div>
