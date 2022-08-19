@@ -1,47 +1,49 @@
 ﻿@page
 @model QuizApp.Pages.QuizModel
 @{
-    ViewData["Title"] = "Home page";
+    ViewData["Title"] = "CS Quiz";
 }
 
 
 @functions{
 
-
-    void displayOptions(int nr, int place, string correct, string incorrect1, string incorrect2)
+    void displayOptions(int nr, int place, Models.Country correct, Models.Country incorrect1, Models.Country incorrect2)
     {
-                var answersCount = Model.Results.Count();
-
-        var answerNr = "answer" + nr;
         switch(place)
         {
             case 1:
-                            <input id="correct" type="radio" name="answer_number" value="1" checked> @answersCount
-                <input id="correct" type="hidden" name="correct_answer" value="@correct" checked>
+                <input id="correct" type="hidden" name="correct_answer" value="@correct.id" checked>
                 <br>
-    <input id="correct" type="radio" name="selected_answer" value="@correct" required="required"> @correct
-    <br>
-    <input id="incorrect1" type="radio" name="selected_answer" value="@incorrect1" required="required"> @incorrect1
-    <br>
-    <input id="incorrect2" type="radio" name="selected_answer" value="@incorrect2" required="required"> @incorrect2
-    <br>
+                <input id="correct" type="radio" name="selected_answer" value="@correct.id" required="required"> @correct.country_name
+                <br>
+                <input id="incorrect1" type="radio" name="selected_answer" value="@incorrect1.id" required="required"> @incorrect1.country_name
+                <br>
+                <input id="incorrect2" type="radio" name="selected_answer" value="@incorrect2.id" required="required"> @incorrect2.country_name
+                <br>
                 break;
+
             case 2:
-    <input id="incorrect1" type="radio" name="@answerNr"> @incorrect1
-    <br>
-    <input id="correct" type="radio" name="@answerNr"> @correct
-    <br>
-    <input id="incorrect2" type="radio" name="@answerNr"> @incorrect2
-    <br>
+                <input id="correct" type="hidden" name="correct_answer" value="@correct.id" checked>
+                <br>
+                <input id="incorrect1" type="radio" name="selected_answer" value="@incorrect1.id" required="required"> @incorrect1.country_name
+                <br>
+                <input id="correct" type="radio" name="selected_answer" value="@correct.id" required="required"> @correct.country_name
+                <br>
+                <input id="incorrect2" type="radio" name="selected_answer" value="@incorrect2.id" required="required"> @incorrect2.country_name
+                <br>
                 break;
+
             case 3:
-    <input id="incorrect1" type="radio" name="@answerNr"> @incorrect1
-    <br>
-    <input id="incorrect2" type="radio" name="@answerNr"> @incorrect2
-    <br>
-    <input id="correct" type="radio" name="@answerNr"> @correct
-    <br>
+                <input id="correct" type="hidden" name="correct_answer" value="@correct.id" checked>
+                <br>
+                <input id="incorrect1" type="radio" name="selected_answer" value="@incorrect1.id" required="required"> @incorrect1.country_name
+                <br>
+                <input id="incorrect2" type="radio" name="selected_answer" value="@incorrect2.id" required="required"> @incorrect2.country_name
+                <br>
+                <input id="correct" type="radio" name="selected_answer" value="@correct.id" required="required"> @correct.country_name
+                <br>
                 break;
+
             default:
                 break;
         }
@@ -51,68 +53,97 @@
 <div class="text-center">
     <h1 class="display-4">Welcome to Country Shape Quiz</h1>
     <h4>Guess the names of 10 randomly selected countries or territories: </h4>
+    <br>
 
     @{
-        var questionNumber = 1;
+        var questionNumber = Model.Results.Count() + 1;
         var countriesCount = Model.Country.Count();
+
         Random rnd = new Random();
         var n1 = 0;
         var n2 = 0;
         var place = 0;
+        var random_id = 1;
+        List<int> ids = new List<int>();
+
         var imagePath = "";
         var altText = "Shape of the country";
 
         //create an array containing id numbers of 10 selected countries 
+
+        //draw an id which wasn't already drew in that game
+
+        /*
         int[] ids = new int[1];
-        var number = 0;
-        for(var i=0; i<ids.Length; i++)
-        {
-            do
-            {
+            var number = 0;
+                for(var i=0; i<ids.Length; i++)
+                {
+                do
+                {
                 number = rnd.Next(1, countriesCount + 1);
             } while (ids.Contains(number));
 
             ids[i] = number;
         }
+        */
+
+        
+        place = rnd.Next(1, 4);
+
+        foreach(var res in Model.Results)
+        {
+            ids.Add(@res.correct_answer);
+            ids.Add(@res.selected_answer);
+        }
+
+        do
+            {
+                random_id = rnd.Next(1, countriesCount + 1);
+            } while (ids.Contains(random_id));
+
     }
 
     <form class="questions" method="post">
-    @foreach (var item in Model.Country) {
+    @foreach (var cnt in Model.Country) {
 
-            if(@ids.Contains(@item.id))
+            if(@cnt.id == @random_id)
             {
-                imagePath = "~/css/images/" + @item.image_name;
+                imagePath = "~/css/images/" + @cnt.image_name;
 
                 do
                 {
                     n1 = rnd.Next(1, countriesCount + 1);
-                } while (n1 == @item.id);
+                } while (n1 == @cnt.id || @ids.Contains(n1));
 
                 do
                 {
                     n2 = rnd.Next(1, countriesCount + 1);
-                } while (n2 == @item.id || n2 == n1);
+                } while (n2 == @cnt.id || n2 == n1 || @ids.Contains(n2));
 
-                Dictionary<int, string> incorrects = new Dictionary<int, string>();
+                //Dictionary<int, string> incorrects = new Dictionary<int, string>();
+                Dictionary<string, Models.Country> random_countries = new Dictionary<string, Models.Country>();
 
                 @foreach  (var country in Model.Country)
                 {
-                    if(@country.id == n1)
+                    if(@country.id == random_id)
                     {
-                        incorrects.Add(n1, @country.country_name);
+                        random_countries.Add("correct", @country);
+                    }
+                    else if(@country.id == n1)
+                    {
+                        random_countries.Add("incorrect1", @country);
                     }
                     else if(@country.id == n2)
                     {
-                        incorrects.Add(n2, @country.country_name);
+                        random_countries.Add("incorrect2", @country);
                     }
 
-                    if(@incorrects.Count == 2)
+                    if(@random_countries.Count == 3)
                     {
                         break;
                     }
                 }
 
-                place = rnd.Next(1, 4);
                 <div class="question" style="background-color:khaki">
                 <br>
                 <p>@questionNumber ) 
@@ -120,14 +151,12 @@
              
                 <div class="answers">
                 @{
-                    displayOptions(@questionNumber, 1, @item.country_name, @incorrects[n1], @incorrects[n2]);
+                    displayOptions(@questionNumber, @place, @random_countries["correct"], @random_countries["incorrect1"], @random_countries["incorrect2"]);
                 }
                 </div>
                 <br>
                 </div>
                 <br>
-
-                questionNumber++;
 
             }
 

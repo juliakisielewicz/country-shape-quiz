@@ -50,15 +50,13 @@ namespace QuizApp.Pages
                 return Page();
             }
 
+            _context.Result.Add(Result);
+            await _context.SaveChangesAsync();
+
             if (_context.Result.Count() >= 5)
             {
                 return RedirectToPage("./Results");
-
             }
-
-
-            _context.Result.Add(Result);
-            await _context.SaveChangesAsync();
 
             return RedirectToPage("./Quiz");
         }

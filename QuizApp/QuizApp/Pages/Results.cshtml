@@ -4,15 +4,68 @@
         ViewData["Title"] = "Results";
 }
 
-<p>HUHUHU.</p>
+@{
+    var imagePath = "";
+    var altText = "Shape of the country";
+}
 
 <table class="table">
-    @foreach (var item in Model.Results) {
-         <tr>
-             <td>Correct answer: @item.correct_answer</td>
-             <td>Your answer: @item.selected_answer</td>
-         </tr>
+    @*
+    @foreach (var res in Model.Results)
+    {
+        @foreach(var c_cnt in Model.Country)
+        {
+            if(res.correct_answer == c_cnt.id)
+            {
+                @foreach(var s_cnt in Model.Country)
+                {
+                    if(res.selected_answer == s_cnt.id)
+                    {
+                        imagePath = "~/css/images/" + @c_cnt.image_name;
+
+                        <tr>
+                            <td><img src="@Url.Content(imagePath)" alt="@altText" /></td>
+                            <td>Correct answer: @c_cnt.country_name</td>
+                            <td>Your answer: @s_cnt.country_name</td>
+                        </tr> 
+                        break;
+                    }
+                }
+                break;
+            }
+        }
+    }
+    *@
+    @{
+        var cor = new Models.Country();
+        var sel = new Models.Country();
 
     }
+
+    @foreach(var res in Model.Results)
+    {
+        @foreach (var cnt in Model.Country)
+        {
+            if(cnt.id == res.correct_answer)
+            {
+                cor = cnt;
+            }
+            if(cnt.id == res.selected_answer)
+            {
+                sel = cnt;
+            }
+        }
+
+        imagePath = "~/css/images/" + @cor.image_name;
+
+        <tr>
+            <td><img src="@Url.Content(imagePath)" alt="@altText" /></td>
+            <td>Correct answer: @cor.country_name</td>
+            <td>Your answer: @sel.country_name</td>
+        </tr> 
+    }
+    
+
+
 </table>
 
