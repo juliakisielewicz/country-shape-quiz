@@ -4,10 +4,12 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using QuizApp.Models;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+
 
 namespace QuizApp.Data
 {
-    public class QuizAppContext : DbContext
+    public class QuizAppContext : IdentityDbContext
     {
         public QuizAppContext (DbContextOptions<QuizAppContext> options)
             : base(options)

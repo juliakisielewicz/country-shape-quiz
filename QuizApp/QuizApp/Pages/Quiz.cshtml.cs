@@ -8,9 +8,11 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using QuizApp.Data;
 using QuizApp.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace QuizApp.Pages
 {
+    [Authorize]
     public class QuizModel : PageModel
     {
         

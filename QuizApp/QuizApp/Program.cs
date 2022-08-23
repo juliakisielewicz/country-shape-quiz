@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using QuizApp.Data;
 using QuizApp.Models;
@@ -8,6 +9,13 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddRazorPages();
 builder.Services.AddDbContext<QuizAppContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("QuizAppContext") ?? throw new InvalidOperationException("Connection string 'QuizAppContext' not found.")));
+
+builder.Services.AddIdentity<IdentityUser, IdentityRole>().AddEntityFrameworkStores<QuizAppContext>();
+
+builder.Services.ConfigureApplicationCookie(config =>
+{
+    config.LoginPath = "/Login";
+});
 
 var app = builder.Build();
 
@@ -32,6 +40,8 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
+
+app.UseAuthentication();
 
 app.UseAuthorization();
 

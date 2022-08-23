@@ -260,3 +260,8 @@ D:\AGH\SEMESTR_6\NET\quiz\QuizApp\QuizApp\bin\Debug\net6.0\runtimes\win\lib\net6
 D:\AGH\SEMESTR_6\NET\quiz\QuizApp\QuizApp\bin\Debug\net6.0\runtimes\win\lib\net6.0\System.Windows.Extensions.dll
 D:\AGH\SEMESTR_6\NET\quiz\QuizApp\QuizApp\obj\Debug\net6.0\QuizApp.csproj.CopyComplete
 D:\AGH\SEMESTR_6\NET\quiz\QuizApp\QuizApp\bin\Debug\net6.0\Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore.dll
+D:\AGH\SEMESTR_6\NET\quiz\QuizApp\QuizApp\bin\Debug\net6.0\Microsoft.AspNetCore.Cryptography.Internal.dll
+D:\AGH\SEMESTR_6\NET\quiz\QuizApp\QuizApp\bin\Debug\net6.0\Microsoft.AspNetCore.Cryptography.KeyDerivation.dll
+D:\AGH\SEMESTR_6\NET\quiz\QuizApp\QuizApp\bin\Debug\net6.0\Microsoft.AspNetCore.Identity.EntityFrameworkCore.dll
+D:\AGH\SEMESTR_6\NET\quiz\QuizApp\QuizApp\bin\Debug\net6.0\Microsoft.Extensions.Identity.Core.dll
+D:\AGH\SEMESTR_6\NET\quiz\QuizApp\QuizApp\bin\Debug\net6.0\Microsoft.Extensions.Identity.Stores.dll

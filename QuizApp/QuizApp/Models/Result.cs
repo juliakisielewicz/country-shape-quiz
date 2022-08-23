@@ -1,4 +1,8 @@
-﻿namespace QuizApp.Models
+﻿using System;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+
+
+namespace QuizApp.Models
 {
     public class Result
     {

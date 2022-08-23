@@ -41,6 +41,25 @@ namespace QuizApp.Migrations
 
                     b.ToTable("Country");
                 });
+
+            modelBuilder.Entity("QuizApp.Models.Result", b =>
+                {
+                    b.Property<int>("id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("id"), 1L, 1);
+
+                    b.Property<int>("correct_answer")
+                        .HasColumnType("int");
+
+                    b.Property<int>("selected_answer")
+                        .HasColumnType("int");
+
+                    b.HasKey("id");
+
+                    b.ToTable("Result");
+                });
 #pragma warning restore 612, 618
         }
     }
