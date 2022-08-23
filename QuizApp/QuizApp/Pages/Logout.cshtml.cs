@@ -1,9 +1,11 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace QuizApp.Pages
 {
+    [Authorize(Roles = "RegularUser, Administrator")]
     public class LogoutModel : PageModel
     {
         private readonly SignInManager<IdentityUser> signInManager;

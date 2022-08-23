@@ -25,6 +25,12 @@ using (var scope = app.Services.CreateScope())
     var context = services.GetRequiredService<QuizAppContext>();
     context.Database.EnsureCreated();
     SeedData.Initialize(services);
+
+    var userManager = services.GetRequiredService<UserManager<IdentityUser>>();
+    var roleManager = services.GetRequiredService<RoleManager<IdentityRole>>();
+    SeedData.SeedRoles(roleManager);
+    SeedData.SeedUsers(userManager);
+
 }
 
 
@@ -42,6 +48,7 @@ app.UseStaticFiles();
 app.UseRouting();
 
 app.UseAuthentication();
+
 
 app.UseAuthorization();
 

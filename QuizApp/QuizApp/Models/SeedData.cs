@@ -1,12 +1,67 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using QuizApp.Data;
+using Microsoft.AspNetCore.Identity;
 
 namespace QuizApp.Models
 {
     public static class SeedData
     {
-        public static void Initialize(IServiceProvider serviceProvider)
+		public static void SeedUsers(UserManager<IdentityUser> userManager)
+		{
+			if (userManager.FindByEmailAsync("user1.com").Result == null)
+			{
+				IdentityUser user = new IdentityUser()
+				{
+					UserName = "user1.com",
+					Email = "user1.com"
+				};
+				
+				IdentityResult result = userManager.CreateAsync(user, "User1!").Result;
+
+				if (result.Succeeded)
+				{
+					userManager.AddToRoleAsync(user, "RegularUser").Wait();
+				}
+			}
+
+
+			if (userManager.FindByEmailAsync("admin.com").Result == null)
+			{
+				IdentityUser user = new IdentityUser()
+                {
+					UserName = "admin.com",
+					Email = "admin.com"
+				};
+
+				IdentityResult result = userManager.CreateAsync(user, "Admin1!").Result;
+
+				if (result.Succeeded)
+				{
+					userManager.AddToRoleAsync(user, "Administrator").Wait();
+				}
+			}
+		}
+
+		public static void SeedRoles(RoleManager<IdentityRole> roleManager)
+		{
+			if (!roleManager.RoleExistsAsync("RegularUser").Result)
+			{
+				IdentityRole role = new IdentityRole();
+				role.Name = "RegularUser";
+				IdentityResult roleResult = roleManager.CreateAsync(role).Result;
+			}
+
+
+			if (!roleManager.RoleExistsAsync("Administrator").Result)
+			{
+				IdentityRole role = new IdentityRole();
+				role.Name = "Administrator";
+				IdentityResult roleResult = roleManager.CreateAsync(role).Result;
+			}
+		}
+
+		public static void Initialize(IServiceProvider serviceProvider)
         {
             using (var context = new QuizAppContext(
                 serviceProvider.GetRequiredService<
@@ -23,6 +78,18 @@ namespace QuizApp.Models
                     return;   // DB has been seeded
                 }
 
+				/*
+				context.Roles.AddRange(
+					new RoleTypes
+                    {
+						Name = "Admin",
+                    },
+					new RoleTypes
+                    {
+						Name = "RegularUser",
+                    }
+					);
+				*/
                 context.Country.AddRange(
                     
 					new Country

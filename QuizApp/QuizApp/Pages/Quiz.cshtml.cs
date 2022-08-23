@@ -12,7 +12,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace QuizApp.Pages
 {
-    [Authorize]
+    [Authorize(Roles ="RegularUser, Administrator")]
     public class QuizModel : PageModel
     {
         

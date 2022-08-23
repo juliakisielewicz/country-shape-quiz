@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -5,6 +6,7 @@ using QuizApp.ViewModels;
 
 namespace QuizApp.Pages
 {
+    [AllowAnonymous]
     public class RegisterModel : PageModel
     {
         private readonly UserManager<IdentityUser> userManager;
@@ -24,7 +26,7 @@ namespace QuizApp.Pages
 
         public async Task<IActionResult> OnPostAsync()
         {
-            if(ModelState.IsValid)
+            if (ModelState.IsValid)
             {
                 var user = new IdentityUser()
                 {
@@ -34,13 +36,13 @@ namespace QuizApp.Pages
 
                 var result = await userManager.CreateAsync(user, Model.Password);
 
-                if(result.Succeeded)
+                if (result.Succeeded)
                 {
                     await signInManager.SignInAsync(user, false);
-                    return RedirectToPage("./Index");
+                    return RedirectToPage("Index");
                 }
 
-                foreach(var error in result.Errors)
+                foreach (var error in result.Errors)
                 {
                     ModelState.AddModelError("", error.Description);
                 }
