@@ -12,9 +12,11 @@ builder.Services.AddDbContext<QuizAppContext>(options =>
 
 builder.Services.AddIdentity<IdentityUser, IdentityRole>().AddEntityFrameworkStores<QuizAppContext>();
 
+
 builder.Services.ConfigureApplicationCookie(config =>
 {
     config.LoginPath = "/Login";
+    config.AccessDeniedPath = "/Logout";
 });
 
 var app = builder.Build();
