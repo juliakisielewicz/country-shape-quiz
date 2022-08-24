@@ -27,7 +27,7 @@ namespace QuizApp.Pages
 
         public IActionResult OnPostDontLogoutAsync()
         {
-            return RedirectToPage("Index");
+            return RedirectToPage("IndexLogged");
         }
     }
 }
