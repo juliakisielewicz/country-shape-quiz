@@ -36,10 +36,6 @@ namespace QuizApp.Pages
                 Results = await _context.Result.ToListAsync();
             }
         }
-        /*
-        public void OnGet()
-        {
-        }
-        */
+    
     }
 }

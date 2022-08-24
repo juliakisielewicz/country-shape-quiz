@@ -3,13 +3,18 @@
 @{
         ViewData["Title"] = "Results";
 }
+@using Microsoft.AspNetCore.Identity
+@inject UserManager<IdentityUser> userManager
 
 <div class="text-center">
-
+    <h5 class="display-6">Here you can see the results of your last game.</h5>
+    <br>
 @{
-    if(Model.Results.Count() == 0)
+    var userResults = Model.Results.Where(c => c.user_id == userManager.GetUserId(User)).ToList();
+
+    if(userResults.Count() != 5)
     {
-            <p>Play the game to see your results!</p>
+        <p>Complete the game to see your results!</p>
     }
     else
     {
@@ -20,32 +25,22 @@
             
         <table class="table">
 
-        @foreach(var res in Model.Results)
+        @foreach(var res in userResults)
         {
-            @foreach (var cnt in Model.Country)
-            {
-                if(cnt.id == res.correct_answer)
-                {
-                    cor = cnt;
-                }
-                if(cnt.id == res.selected_answer)
-                {
-                    sel = cnt;
-                }
-            }
+                cor = Model.Country.Where(c => c.id == res.correct_answer).First();
+                sel = Model.Country.Where(c => c.id == res.selected_answer).First();
 
-            imagePath = "~/css/images/" + @cor.image_name;
+                imagePath = "~/css/images/" + @cor.image_name;
 
-            <tr>
-                <td><img src="@Url.Content(imagePath)" alt="@altText" /></td>
-                <td>Correct answer: @cor.country_name</td>
-                <td>Your answer: @sel.country_name</td>
-            </tr> 
+                <tr>
+                    <td><img src="@Url.Content(imagePath)" alt="@altText" /></td>
+                    <td>Correct answer: @cor.country_name</td>
+                    <td>Your answer: @sel.country_name</td>
+                </tr>       
         }
 
         </table>
     }
-
 }
 
 </div>

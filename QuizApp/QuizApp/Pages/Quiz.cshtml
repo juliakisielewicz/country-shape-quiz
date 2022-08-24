@@ -9,10 +9,12 @@
 
     void displayOptions(int nr, int place, Models.Country correct, Models.Country incorrect1, Models.Country incorrect2)
     {
+        var tmp = "tmp";
         switch(place)
         {
             case 1:
                 <input id="correct" type="hidden" name="correct_answer" value="@correct.id" checked>
+                <input id="correct" type="hidden" name="user_id" value="@tmp" checked>
                 <br>
                 <input id="correct" type="radio" name="selected_answer" value="@correct.id" required="required"> @correct.country_name
                 <br>
@@ -24,6 +26,8 @@
 
             case 2:
                 <input id="correct" type="hidden" name="correct_answer" value="@correct.id" checked>
+                <input id="correct" type="hidden" name="user_id" value="@tmp" checked>
+
                 <br>
                 <input id="incorrect1" type="radio" name="selected_answer" value="@incorrect1.id" required="required"> @incorrect1.country_name
                 <br>
@@ -35,6 +39,8 @@
 
             case 3:
                 <input id="correct" type="hidden" name="correct_answer" value="@correct.id" checked>
+                <input id="correct" type="hidden" name="user_id" value="@tmp" checked>
+
                 <br>
                 <input id="incorrect1" type="radio" name="selected_answer" value="@incorrect1.id" required="required"> @incorrect1.country_name
                 <br>

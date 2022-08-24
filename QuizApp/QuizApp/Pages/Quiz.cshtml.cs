@@ -9,19 +9,26 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using QuizApp.Data;
 using QuizApp.Models;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 
 namespace QuizApp.Pages
 {
     [Authorize(Roles ="RegularUser, Administrator")]
     public class QuizModel : PageModel
     {
-        
+        //private readonly SignInManager<IdentityUser> signInManager;
+        //private readonly UserManager<IdentityUser> userManager;
+
 
         private readonly QuizApp.Data.QuizAppContext _context;
+        private readonly UserManager<IdentityUser> userManager;
+        private readonly SignInManager<IdentityUser> signInManager;
 
-        public QuizModel(QuizApp.Data.QuizAppContext context)
+        public QuizModel(QuizApp.Data.QuizAppContext context, UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager)
         {
             _context = context;
+            this.userManager = userManager;
+            this.signInManager = signInManager;
         }
 
         public IList<Country> Country { get; set; } = default!;
@@ -52,10 +59,24 @@ namespace QuizApp.Pages
                 return Page();
             }
 
-            _context.Result.Add(Result);
+            var res = new Result()
+            {
+                id = Result.id,
+                correct_answer = Result.correct_answer,
+                selected_answer = Result.selected_answer,
+                user_id = userManager.GetUserId(User)
+            };
+            /*
+            if(signInManager.IsSignedIn(User))
+            {
+                Result.user_id = userManager.GetUserId(User);
+            }
+            */
+            //Result.user_id = "tmp";
+            _context.Result.Add(res);
             await _context.SaveChangesAsync();
 
-            if (_context.Result.Count() >= 5)
+            if (_context.Result.Where(c => c.user_id == userManager.GetUserId(User)).ToList().Count() >= 5)
             {
                 return RedirectToPage("./Results");
             }

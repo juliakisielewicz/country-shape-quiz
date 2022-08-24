@@ -14,17 +14,19 @@ using QuizApp.ViewModels;
 namespace QuizApp.Pages
 {
     [Authorize(Roles = "RegularUser, Administrator")]
-    //[AllowAnonymous]
     public class IndexLoggedModel : PageModel
     {
         private readonly QuizApp.Data.QuizAppContext _context;
+        private readonly UserManager<IdentityUser> userManager;
+        private readonly SignInManager<IdentityUser> signInManager;
 
-        public IndexLoggedModel(QuizApp.Data.QuizAppContext context)
+        public IndexLoggedModel(QuizApp.Data.QuizAppContext context, UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager)
         {
             _context = context;
+            this.userManager = userManager;
+            this.signInManager = signInManager;
         }
 
-        //public IList<Country> Country { get; set; } = default!;
         public IList<Result> Results { get; set; } = default!;
         [BindProperty]
         public Result Result { get; set; } = default!;
@@ -32,11 +34,6 @@ namespace QuizApp.Pages
 
         public async Task OnGetAsync()
         {
-            //if (_context.Country != null)
-           // {
-           //     Country = await _context.Country.ToListAsync();
-           // }
-
             if (_context.Result != null)
             {
                 Results = await _context.Result.ToListAsync();
@@ -47,13 +44,17 @@ namespace QuizApp.Pages
 
         public async Task<IActionResult> OnPostAsync()
         {
-            foreach (var answer in _context.Result)
+            var uId = userManager.GetUserId(User);
+            var userResults = _context.Result.Where(c => c.user_id == uId).ToList();
+            if(userResults != null)
             {
-                _context.Result.Remove(answer);
+                foreach (var answer in userResults)
+                {
+                    _context.Result.Remove(answer);
+                }
             }
 
             await _context.SaveChangesAsync();
-
 
             return RedirectToPage("./Quiz");
         }

@@ -9,7 +9,6 @@
 <div class="text-center">
     @if(SignInManager.IsSignedIn(User))
     {
-       <h1 class="display-6">Hello @userManager.GetUserId(User)!</h1>        
        <h1 class="display-6">Hello @User.Identity.Name!</h1>        
 
     }
