@@ -11,8 +11,8 @@ using QuizApp.Models;
 
 namespace QuizApp.Pages.Countries
 {
-    //[Authorize(Roles = "Administrator")]
-    [AllowAnonymous]
+    [Authorize(Roles = "Administrator")]
+    //[AllowAnonymous]
     public class IndexModel : PageModel
     {
         private readonly QuizApp.Data.QuizAppContext _context;
@@ -55,13 +55,6 @@ namespace QuizApp.Pages.Countries
 
             return RedirectToPage("./Quiz");
         }
-        /*
 
-        public string Message { get; set; }
-        public void OnPostSubmit(Result result)
-        {
-            this.Message = string.Format("Correct answer: {0}. Your answer: {1}.", result.selected_answer, result.selected_answer);
-        }
-        */
     }
 }

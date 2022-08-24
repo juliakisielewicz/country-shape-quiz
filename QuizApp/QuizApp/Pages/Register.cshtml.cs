@@ -38,8 +38,9 @@ namespace QuizApp.Pages
 
                 if (result.Succeeded)
                 {
+                    userManager.AddToRoleAsync(user, "RegularUser").Wait();
                     await signInManager.SignInAsync(user, false);
-                    return RedirectToPage("Index");
+                    return RedirectToPage("IndexLogged");
                 }
 
                 foreach (var error in result.Errors)

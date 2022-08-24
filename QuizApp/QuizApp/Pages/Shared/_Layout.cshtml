@@ -15,7 +15,15 @@
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="container">
-                <a class="navbar-brand" asp-page="/Countries/Index">Country Shape Quiz</a>
+                @if(SignInManager.IsSignedIn(User))
+                {
+                    
+                    <a class="navbar-brand" asp-page="/IndexLogged">Country Shape Quiz</a>
+                }
+                else
+                {
+                    <a class="navbar-brand" asp-page="/Index">Country Shape Quiz</a>
+                }
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -25,12 +33,14 @@
                     {
                         <ul class="navbar-nav flex-grow-1">
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-page="/Index">Home</a>
+                                <a class="nav-link text-dark" asp-area="" asp-page="/Results">Results</a>
                             </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-page="/Privacy">Privacy</a>
-                            </li>
-                            
+                            @if(User.IsInRole("Administrator"))
+                            {
+                                <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-page="/Countries/Index">Manager</a>
+                                </li>
+                            }
                         </ul>
                         <ul class="navbar-nav d-flex justify-content-end">
                             <li class="nav-item">
@@ -63,7 +73,7 @@
 
     <footer class="border-top footer text-muted">
         <div class="container">
-            &copy; 2022 - QuizApp - <a asp-area="" asp-page="/Privacy">Privacy</a>
+            &copy; 2022 - Country Shape Quiz - <a asp-area="" asp-page="/Privacy">Privacy</a>
         </div>
     </footer>
 

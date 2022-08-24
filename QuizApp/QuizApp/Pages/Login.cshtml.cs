@@ -34,7 +34,7 @@ namespace QuizApp.Pages
                 {
                     if (returnUrl == null || returnUrl == "/")
                     {
-                        return RedirectToPage("Index");
+                        return RedirectToPage("IndexLogged");
                     }
                     else
                     {
@@ -44,12 +44,6 @@ namespace QuizApp.Pages
 
                 ModelState.AddModelError("", "Username or Password is incorrect.");
             }
-            else
-            {
-                return RedirectToPage("Quiz");
-
-            }
-
 
             return Page();
         }
