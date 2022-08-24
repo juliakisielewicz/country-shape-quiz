@@ -2,15 +2,16 @@
 @model QuizApp.Pages.Countries.IndexModel
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Manager";
 }
-
-<h1>Index</h1>
+<div class="text-center">
+<p >Here you can manage the list of countries.</p><br>
 
 <p>
     <a asp-page="Create">Create New</a>
 </p>
-<table class="table">
+<br>
+<table class="table-sm custom-table">
     <thead>
         <tr>
             <th>
@@ -36,7 +37,7 @@
                 
                 <img src="@Url.Content(imagePath)" alt="@altText" />
             </td>
-            <td>
+            <td style="padding:50px;">
                 <a asp-page="./Edit" asp-route-id="@item.id">Edit</a> |
                 <a asp-page="./Details" asp-route-id="@item.id">Details</a> |
                 <a asp-page="./Delete" asp-route-id="@item.id">Delete</a>
@@ -45,3 +46,4 @@
 }
     </tbody>
 </table>
+</div>

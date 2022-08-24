@@ -1,5 +1,5 @@
 html {
-  font-size: 14px;
+    font-size: 14px;
 }
 
 @media (min-width: 768px) {
@@ -14,12 +14,91 @@ html {
 }
 
 body {
-  margin-bottom: 60px;
+    margin-bottom: 60px;
+    background-color: #fefdf4;
+    font-family: 'Lato', sans-serif;
+    font-size: larger;
+    color: #313131;
 }
+
+.navbar {
+    background-color: khaki;
+    color: #313131;
+}
+.navbar-brand:hover {
+    color: #313131;
+}
+
+.navbar-brand {
+    color: #313131;
+}
+
 
 .answers {
     width: 300px;
     text-align: left;
     margin: 0 auto;
-    border: solid 2px black;
+}
+
+.btn-primary {
+    background-color: #431C8D;
+    border-color: #4D1F7D;
+}
+
+
+.btn-primary:hover {
+    background-color: #5C1CB3;
+}
+
+footer {
+    background-color: #fefdf4;
+    border-top: 1px solid khaki;
+    font-size: small;
+}
+
+.border-top1 {
+    border-top: 1px solid khaki;
+}
+
+.border-bottom {
+    border-bottom: 1px solid khaki;
+}
+
+a {
+    color: #431C8D;
+}
+
+a:hover {
+    color: #5B1FBE;
+}
+
+
+.buffer {
+    height: 120px;
+}
+
+
+.custom-radio {
+    background-color:khaki;
+    border-radius: .25rem;
+    padding:5px;
+    margin: 5px;
+}
+
+:root {
+    accent-color: #431C8D;
+}
+
+
+.custom-table {
+    margin: 0 auto;
+}
+
+.custom-table tr {
+        border-top: 1px solid khaki;
+
+}
+
+.custom-td {
+    padding:50px;
 }

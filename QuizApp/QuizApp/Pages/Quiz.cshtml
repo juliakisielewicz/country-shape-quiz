@@ -17,37 +17,43 @@
             case 1:
                 <input id="correct" type="hidden" name="correct_answer" value="@correct.id" checked>
                 <input id="correct" type="hidden" name="user_id" value="@tmp" checked>
-                <br>
-                <input id="correct" type="radio" name="selected_answer" value="@correct.id" required="required"> @correct.country_name
-                <br>
-                <input id="incorrect1" type="radio" name="selected_answer" value="@incorrect1.id" required="required"> @incorrect1.country_name
-                <br>
-                <input id="incorrect2" type="radio" name="selected_answer" value="@incorrect2.id" required="required"> @incorrect2.country_name
-                <br>
+                <div class="custom-radio" >
+                    <input  id="correct" type="radio" name="selected_answer" value="@correct.id" required="required"> @correct.country_name
+                </div>
+                <div class="custom-radio" >
+                    <input id="incorrect1" type="radio" name="selected_answer" value="@incorrect1.id" required="required"> @incorrect1.country_name
+                </div>
+                <div class="custom-radio" >
+                    <input id="incorrect2" type="radio" name="selected_answer" value="@incorrect2.id" required="required"> @incorrect2.country_name
+                </div>
                 break;
 
             case 2:
                 <input id="correct" type="hidden" name="correct_answer" value="@correct.id" checked>
                 <input id="correct" type="hidden" name="user_id" value="@tmp" checked>
-                <br>
-                <input id="incorrect1" type="radio" name="selected_answer" value="@incorrect1.id" required="required"> @incorrect1.country_name
-                <br>
-                <input id="correct" type="radio" name="selected_answer" value="@correct.id" required="required"> @correct.country_name
-                <br>
-                <input id="incorrect2" type="radio" name="selected_answer" value="@incorrect2.id" required="required"> @incorrect2.country_name
-                <br>
+                <div class="custom-radio" >
+                    <input id="incorrect1" type="radio" name="selected_answer" value="@incorrect1.id" required="required"> @incorrect1.country_name
+                </div>
+                <div class="custom-radio" >
+                    <input id="correct" type="radio" name="selected_answer" value="@correct.id" required="required"> @correct.country_name
+                </div>
+                <div class="custom-radio" >
+                    <input id="incorrect2" type="radio" name="selected_answer" value="@incorrect2.id" required="required"> @incorrect2.country_name
+                </div>
                 break;
 
             case 3:
                 <input id="correct" type="hidden" name="correct_answer" value="@correct.id" checked>
                 <input id="correct" type="hidden" name="user_id" value="@tmp" checked>
-                <br>
-                <input id="incorrect1" type="radio" name="selected_answer" value="@incorrect1.id" required="required"> @incorrect1.country_name
-                <br>
-                <input id="incorrect2" type="radio" name="selected_answer" value="@incorrect2.id" required="required"> @incorrect2.country_name
-                <br>
-                <input id="correct" type="radio" name="selected_answer" value="@correct.id" required="required"> @correct.country_name
-                <br>
+                <div class="custom-radio" >
+                    <input id="incorrect1" type="radio" name="selected_answer" value="@incorrect1.id" required="required"> @incorrect1.country_name
+                </div>
+                <div class="custom-radio" >
+                    <input id="incorrect2" type="radio" name="selected_answer" value="@incorrect2.id" required="required"> @incorrect2.country_name
+                </div>
+                <div class="custom-radio" >
+                    <input id="correct" type="radio" name="selected_answer" value="@correct.id" required="required"> @correct.country_name
+                </div>
                 break;
 
             default:
@@ -107,25 +113,21 @@
 }
 
 <div class="text-center">
-    <h4>Guess the names of 5 randomly selected countries or territories: </h4>
     <br>
+    <p>Guess the names of 5 randomly selected countries or territories: </p>
     <form class="questions" method="post">
-
         <div class="question">
-            <br>
             <p>@questionNumber ) 
             <img src="@Url.Content(imagePath)" alt="@altText" /> 
             </p>
-             
             <div class="answers">
                 @{
                     displayOptions(@questionNumber, @place, @correct, @incorrects[0], @incorrects[1]);
                 }
             </div>
-            <br>
         </div>
         <br>
-        <input type="submit" value="Submit" asp-page-handler="Submit"/>
+        <input type="submit" class="btn btn-primary" value="Submit" asp-page-handler="Submit"/>
     </form>
 
 

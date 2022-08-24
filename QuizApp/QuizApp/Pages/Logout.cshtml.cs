@@ -22,12 +22,12 @@ namespace QuizApp.Pages
         public async Task<IActionResult> OnPostLogoutAsync()
         {
             await signInManager.SignOutAsync();
-            return RedirectToPage("Login");
+            return RedirectToPage("Index");
         }
 
         public IActionResult OnPostDontLogoutAsync()
         {
-            return RedirectToPage("IndexLogged");
+            return RedirectToPage("Index");
         }
     }
 }

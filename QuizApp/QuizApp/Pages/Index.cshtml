@@ -3,13 +3,51 @@
 @{
     ViewData["Title"] = "Home";
 }
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> userManager
 
+<div class="buffer"></div>
 <div class="text-center">
-
-    <h1 class="display-4">Welcome to Country Shape Quiz</h1>
-    <p>Select the correct names of 5 randomly selected countries or territories based on their shapes </p>
-    
-
+    @if(SignInManager.IsSignedIn(User))
+    {
+        <p class="display-6"><span style="color: #431C8D"> Hello, @User.Identity.Name!</span></p>        
+        <p class="display-3">Welcome to Country Shape Quiz</p>
+        <br>
+        <p>Select the correct names of 5 randomly selected countries or territories based on their shapes.
+        <br><br>
+        After finishing the game, you will see your results.
+        <br>You can also see the results of your last game by clicking on the <i>Results</i> tab above. </p><br>
+        <form class="questions" method="post">
+            <input class="btn btn-primary" type="submit" value="Start Quiz!" asp-page-handler="Submit"/>
+        </form>
+    }
+    else
+    {
+        <p class="display-3">Welcome to Country Shape Quiz</p>
+        <br>
+        <p>You've seen a lot of maps in your life right?<br>So, how many countries and territories can you recognize just by their shape?
+        <br><br>
+        Register or log in and test your geographical intuition!</p>
+    }
 
 </div>
+@*
+<div class="text-center">
+    @if(SignInManager.IsSignedIn(User))
+    {
+       <p class="display-6"><span style="color: #431C8D"> Hello, @User.Identity.Name!</span></p>        
 
+    }
+    <p class="display-3">Welcome to Country Shape Quiz</p>
+    <br>
+    <p>Select the correct names of 5 randomly selected countries or territories based on their shapes.
+        <br><br>
+        After finishing the game, you will see your results.
+        <br>You can also see the results of your last game by clicking on the <i>Results</i> tab above. </p><br>
+    <form class="questions" method="post">
+        <input class="btn btn-primary" type="submit" value="Start Quiz!" asp-page-handler="Submit"/>
+    </form>
+
+</div>
+*@

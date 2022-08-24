@@ -6,40 +6,56 @@
 @using Microsoft.AspNetCore.Identity
 @inject UserManager<IdentityUser> userManager
 
-<div class="text-center">
-    <h5 class="display-6">Here you can see the results of your last game.</h5>
+<div class="text-center align-items-center">
+    <br>
+    <p>Here you can see the results of your last game.</p>
     <br>
 @{
     var userResults = Model.Results.Where(c => c.user_id == userManager.GetUserId(User)).ToList();
 
     if(userResults.Count() != 5)
     {
-        <p>Complete the game from start to finish to see your results!</p>
-    }
-    else
-    {
-        var imagePath = "";
-        var altText = "Shape of the country";
-        var cor = new Models.Country();
-        var sel = new Models.Country();
-            
-        <table class="table">
-
-        @foreach(var res in userResults)
-        {
-                cor = Model.Country.Where(c => c.id == res.correct_answer).First();
-                sel = Model.Country.Where(c => c.id == res.selected_answer).First();
-
-                imagePath = "~/css/images/" + @cor.image_name;
-
-                <tr>
-                    <td><img src="@Url.Content(imagePath)" alt="@altText" /></td>
-                    <td>Correct answer: @cor.country_name</td>
-                    <td>Your answer: @sel.country_name</td>
-                </tr>       
+            <p>Complete the game from start to finish to see your results!</p>
         }
+        else
+        {
+            var imagePath = "";
+            var altText = "Shape of the country";
+            var cor = new Models.Country();
+            var sel = new Models.Country();
 
-        </table>
+            var points = userResults.Where(c => c.correct_answer.Equals(c.selected_answer)).Count();
+
+            <p class="display-6"> Your result is:  </p>
+            <p class="display-3" style="color:#431C8D">@points / 5</p><br>
+
+            <form class="questions" method="post">
+                <input class="btn btn-primary" type="submit" value="Try Again" asp-page-handler="Submit"/>
+            </form>
+            <br><br>
+            <table class="table-sm custom-table">
+            @foreach(var res in userResults)
+            {
+                    cor = Model.Country.Where(c => c.id == res.correct_answer).First();
+                    sel = Model.Country.Where(c => c.id == res.selected_answer).First();
+                    imagePath = "~/css/images/" + @cor.image_name;
+                    <tr>
+                    <td style="padding:20px;">
+                    <img src="@Url.Content(imagePath)" alt="@altText" />
+                    </td>
+                    <td>
+                    @if(res.correct_answer.Equals(res.selected_answer))
+                    {
+                        <span style="color: #5BB318">@cor.country_name</span>
+                    }
+                    else
+                    {
+                        <span style="color: #C21010"><del>@sel.country_name</del><br> </span><span style="color: #5BB318"> @cor.country_name</span>
+                    }
+                    </td>
+</tr>                
+            }
+            </table>
     }
 }
 

@@ -34,7 +34,7 @@ namespace QuizApp.Pages
                 {
                     if (returnUrl == null || returnUrl == "/")
                     {
-                        return RedirectToPage("IndexLogged");
+                        return RedirectToPage("Index");
                     }
                     else
                     {
