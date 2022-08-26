@@ -32,11 +32,9 @@ After submitting the fifth answer, the user is redirected to the Results Page. T
 
 The Admin Panel that allows managing the list of countries, along with the various functionalities, is as follows.
 
-List of countires | Creating a new country  
-:-------------------------:|:-------------------------:
-![manager1](https://user-images.githubusercontent.com/87367190/186768279-e6df361a-d048-4f47-b414-8744e51214d8.png) | ![manager2](https://user-images.githubusercontent.com/87367190/186768307-1babbdf0-052e-495d-a313-c556d29a8981.png)
-Editing the country | Deleting the country
-![manager3](https://user-images.githubusercontent.com/87367190/186768342-67f364ea-6acc-4c4b-9887-f90913ceb519.png) | ![manager4](https://user-images.githubusercontent.com/87367190/186768370-f13b4544-b19a-4077-ac19-4ff759f061f1.png)
+List of countires | Creating a new country | Editing the country | Deleting the country
+:-------------------------:|:-------------------------:|:-------------------------:|:-------------------------:
+![manager1](https://user-images.githubusercontent.com/87367190/186768279-e6df361a-d048-4f47-b414-8744e51214d8.png) | ![manager2](https://user-images.githubusercontent.com/87367190/186768307-1babbdf0-052e-495d-a313-c556d29a8981.png) | ![manager3](https://user-images.githubusercontent.com/87367190/186768342-67f364ea-6acc-4c4b-9887-f90913ceb519.png) | ![manager4](https://user-images.githubusercontent.com/87367190/186768370-f13b4544-b19a-4077-ac19-4ff759f061f1.png)
 
 ## Testing
 
